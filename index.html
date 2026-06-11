@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Performonomics Nexus — Module Hosting</title>
+  <style>
+    :root {
+      --bg: #000000;
+      --surface: #0F0D08;
+      --surface2: #15110A;
+      --border: rgba(212, 169, 92, 0.22);
+      --border-strong: rgba(212, 169, 92, 0.45);
+      --gold: #D4A95C;
+      --gold-light: #F2D680;
+      --text: #F5EFE0;
+      --muted: #A89881;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 2rem;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+    }
+    .container { max-width: 720px; margin: 0 auto; }
+    h1 { color: var(--gold); border-bottom: 1px solid var(--border-strong); padding-bottom: 0.5rem; }
+    h2 { color: var(--gold); margin-top: 2rem; }
+    a { color: var(--gold-light); }
+    a:hover { color: var(--gold); }
+    code, pre {
+      font-family: Consolas, "SF Mono", Menlo, monospace;
+      background: var(--surface2);
+      color: var(--muted);
+      padding: 0.15rem 0.4rem;
+      border-radius: 3px;
+      border: 1px solid var(--border);
+    }
+    pre { padding: 1rem; overflow-x: auto; }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 1.25rem;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+    }
+    .muted { color: var(--muted); font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Performonomics Nexus — Module Hosting</h1>
+    <p class="muted">Public host for compiled Performonomics Nexus module bundles. Served via GitHub Pages.</p>
+
+    <h2>URL convention</h2>
+    <pre>https://tnekomoto.github.io/nexus-module-hosting/{module_code}/{version}/bundle.mjs
+https://tnekomoto.github.io/nexus-module-hosting/{module_code}/{version}/SHA256SUM</pre>
+
+    <h2>What is this?</h2>
+    <div class="card">
+      <p>This site hosts <strong>compiled, content-hashed module bundles</strong> consumed by the Performonomics Nexus assessment platform. Module source code is private; only the built artifacts live here.</p>
+      <p>For more, see the <a href="https://github.com/tnekomoto/nexus-module-hosting">repository README</a>.</p>
+    </div>
+
+    <h2>Module catalog</h2>
+    <p class="muted">As modules are published, they appear at predictable URLs. The Base44 app maintains the canonical list.</p>
+    <div class="card">
+      <p class="muted">(No modules published yet. Watch this space.)</p>
+    </div>
+
+    <h2>Security</h2>
+    <div class="card">
+      <p>Every bundle is paired with a <code>SHA256SUM</code> file. The runner verifies the bundle's hash before evaluation. Mismatches are quarantined and audited.</p>
+      <p>Future: KMS signing will add a second layer; the content hash will remain as a defense-in-depth check.</p>
+    </div>
+  </div>
+</body>
+</html>
