@@ -1,0 +1,74 @@
+{
+  "schema_version": "1.0",
+  "base_url": "https://tnekomoto.github.io/nexus-module-hosting",
+  "generated_at": "2026-06-12T00:32:17.442Z",
+  "module_count": 6,
+  "modules": [
+    {
+      "module_code": "MEMORA",
+      "url_path": "memora",
+      "version": "1.19.2",
+      "artifact_url": "https://tnekomoto.github.io/nexus-module-hosting/memora/1.19.2/bundle.mjs",
+      "shasum_url": "https://tnekomoto.github.io/nexus-module-hosting/memora/1.19.2/SHA256SUM",
+      "content_hash": "sha256:4f0c4f07d45ca83bc058cfa6fed4d246119cd6ebf58093afed3efbfeab2b17a3",
+      "size_bytes": 139668,
+      "published_at": "2026-06-12T00:16:17.975Z",
+      "is_latest": true
+    },
+    {
+      "module_code": "ORIENTA",
+      "url_path": "orienta",
+      "version": "1.7.0",
+      "artifact_url": "https://tnekomoto.github.io/nexus-module-hosting/orienta/1.7.0/bundle.mjs",
+      "shasum_url": "https://tnekomoto.github.io/nexus-module-hosting/orienta/1.7.0/SHA256SUM",
+      "content_hash": "sha256:3c2d283808399ed2f9cc5971c3a3098afdca840a8ce0220b120f001f597f5ecc",
+      "size_bytes": 93972,
+      "published_at": "2026-06-11T23:43:36.312Z",
+      "is_latest": true
+    },
+    {
+      "module_code": "PERCEPTA_DET",
+      "url_path": "percepta_det",
+      "version": "1.1.6",
+      "artifact_url": "https://tnekomoto.github.io/nexus-module-hosting/percepta_det/1.1.6/bundle.mjs",
+      "shasum_url": "https://tnekomoto.github.io/nexus-module-hosting/percepta_det/1.1.6/SHA256SUM",
+      "content_hash": "sha256:a84b07c663e51a8b99024b3142584fdfa6dd43dd505c0134aa6258ac12ffd95a",
+      "size_bytes": 57102,
+      "published_at": "2026-06-12T00:27:28.257Z",
+      "is_latest": true
+    },
+    {
+      "module_code": "PERCEPTA_IMAGE",
+      "url_path": "percepta_image",
+      "version": "1.0.0",
+      "artifact_url": "https://tnekomoto.github.io/nexus-module-hosting/percepta_image/1.0.0/bundle.mjs",
+      "shasum_url": "https://tnekomoto.github.io/nexus-module-hosting/percepta_image/1.0.0/SHA256SUM",
+      "content_hash": "sha256:c60901859f4fd9e4b73714d3ec5932a254cd73b9249db813275aee08432dc01f",
+      "size_bytes": 63616,
+      "published_at": "2026-06-12T00:29:07.802Z",
+      "is_latest": true
+    },
+    {
+      "module_code": "PERCEPTA_WORD",
+      "url_path": "percepta_word",
+      "version": "1.7.0",
+      "artifact_url": "https://tnekomoto.github.io/nexus-module-hosting/percepta_word/1.7.0/bundle.mjs",
+      "shasum_url": "https://tnekomoto.github.io/nexus-module-hosting/percepta_word/1.7.0/SHA256SUM",
+      "content_hash": "sha256:ff95998836e94f8da0bf229d3ef7765e5c4bd97e8f21ace8defd9eef499f139c",
+      "size_bytes": 78322,
+      "published_at": "2026-06-12T00:29:07.797Z",
+      "is_latest": true
+    },
+    {
+      "module_code": "PURSUIT",
+      "url_path": "pursuit",
+      "version": "2.4.1",
+      "artifact_url": "https://tnekomoto.github.io/nexus-module-hosting/pursuit/2.4.1/bundle.mjs",
+      "shasum_url": "https://tnekomoto.github.io/nexus-module-hosting/pursuit/2.4.1/SHA256SUM",
+      "content_hash": "sha256:1eab55a58cc6331970420c048745bb878b9f0801c561ec77281aa580480451bd",
+      "size_bytes": 68334,
+      "published_at": "2026-06-12T00:11:46.946Z",
+      "is_latest": true
+    }
+  ]
+}

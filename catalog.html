@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module Catalog — Performonomics Nexus</title>
+  <style>
+    :root {
+      --bg: #000000;
+      --surface: #0F0D08;
+      --surface2: #15110A;
+      --border: rgba(212, 169, 92, 0.22);
+      --border-strong: rgba(212, 169, 92, 0.45);
+      --gold-dark: #8B6F2F;
+      --gold: #D4A95C;
+      --gold-light: #F2D680;
+      --text: #F5EFE0;
+      --muted: #A89881;
+      --ok: #4ADE80;
+      --warn: #E8B855;
+      --error: #C44545;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 1.5rem;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.5;
+    }
+    .container { max-width: 1100px; margin: 0 auto; }
+    h1 {
+      color: var(--gold);
+      border-bottom: 1px solid var(--border-strong);
+      padding-bottom: 0.5rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    .nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-right: 1.5rem;
+    }
+    .nav a:hover { color: var(--gold-light); }
+    .summary {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+    .summary strong { color: var(--gold); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    thead {
+      background: var(--surface2);
+    }
+    th {
+      color: var(--gold);
+      text-align: left;
+      padding: 0.75rem 1rem;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border-strong);
+    }
+    td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.95rem;
+    }
+    tbody tr:hover { background: var(--surface2); }
+    tbody tr:last-child td { border-bottom: none; }
+    .mono {
+      font-family: Consolas, "SF Mono", Menlo, monospace;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .module-code {
+      color: var(--gold);
+      font-weight: 600;
+      font-family: Consolas, "SF Mono", Menlo, monospace;
+    }
+    .version {
+      display: inline-block;
+      padding: 0.1rem 0.5rem;
+      background: var(--surface2);
+      border: 1px solid var(--border-strong);
+      border-radius: 3px;
+      font-family: Consolas, "SF Mono", Menlo, monospace;
+      font-size: 0.85rem;
+      color: var(--gold-light);
+    }
+    .latest {
+      display: inline-block;
+      padding: 0.05rem 0.4rem;
+      margin-left: 0.4rem;
+      background: var(--ok);
+      color: var(--bg);
+      border-radius: 3px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .hash-short {
+      cursor: pointer;
+      color: var(--muted);
+    }
+    .hash-short:hover { color: var(--gold-light); }
+    .copy-link {
+      color: var(--gold-light);
+      text-decoration: none;
+      font-family: Consolas, "SF Mono", Menlo, monospace;
+      font-size: 0.85rem;
+    }
+    .copy-link:hover { color: var(--gold); text-decoration: underline; }
+    .size { color: var(--muted); font-size: 0.85rem; }
+    .date { color: var(--muted); font-size: 0.85rem; }
+    .footer {
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+    .loading { color: var(--muted); padding: 2rem; text-align: center; }
+    .error { color: var(--error); padding: 2rem; text-align: center; }
+    @media (max-width: 768px) {
+      .hide-mobile { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Module Catalog</h1>
+    <div class="nav">
+      <a href="./">Home</a>
+      <a href="./manifest.json">manifest.json</a>
+      <a href="https://github.com/tnekomoto/nexus-module-hosting">GitHub</a>
+    </div>
+
+    <div id="summary" class="summary">Loading catalog…</div>
+
+    <div id="content">
+      <div class="loading">Fetching <span class="mono">manifest.json</span>…</div>
+    </div>
+
+    <div class="footer">
+      <strong style="color: var(--gold);">Performonomics Nexus</strong> — Module Hosting<br>
+      Bundles are <span class="mono">esbuild</span>-compiled ESM. Each carries an <span class="mono">SHA256SUM</span> alongside; runners verify before evaluation.<br>
+      Catalog regenerates on every push via <span class="mono">scripts/build-manifest.mjs</span>.
+    </div>
+  </div>
+
+  <script type="module">
+    async function load() {
+      try {
+        const res = await fetch('./manifest.json', { cache: 'no-cache' });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const m = await res.json();
+        render(m);
+      } catch (err) {
+        document.getElementById('content').innerHTML =
+          `<div class="error">Failed to load manifest.json: ${err.message}</div>`;
+      }
+    }
+
+    function shortHash(h) {
+      // sha256:abcd1234... → abcd1234…
+      return (h || '').replace(/^sha256:/, '').slice(0, 8) + '…';
+    }
+
+    function fmtSize(b) {
+      const kb = b / 1024;
+      return kb < 1000 ? `${kb.toFixed(1)} KB` : `${(kb/1024).toFixed(2)} MB`;
+    }
+
+    function fmtDate(iso) {
+      try {
+        const d = new Date(iso);
+        return d.toISOString().replace('T', ' ').slice(0, 16) + ' UTC';
+      } catch { return iso; }
+    }
+
+    function render(m) {
+      const summary = document.getElementById('summary');
+      summary.innerHTML = `<strong>${m.module_count}</strong> bundle(s) hosted &nbsp;·&nbsp; ` +
+        `generated ${fmtDate(m.generated_at)} &nbsp;·&nbsp; ` +
+        `base URL: <span class="mono">${m.base_url}</span>`;
+
+      const rows = m.modules.map(mod => `
+        <tr>
+          <td><span class="module-code">${mod.module_code}</span></td>
+          <td><span class="version">v${mod.version}</span>${mod.is_latest ? '<span class="latest">latest</span>' : ''}</td>
+          <td class="size hide-mobile">${fmtSize(mod.size_bytes)}</td>
+          <td><a class="copy-link" href="${mod.artifact_url}" target="_blank" rel="noopener">bundle.mjs ↗</a></td>
+          <td><span class="hash-short mono" title="${mod.content_hash}" onclick="navigator.clipboard?.writeText('${mod.content_hash}')">${shortHash(mod.content_hash)}</span></td>
+          <td class="date hide-mobile">${fmtDate(mod.published_at)}</td>
+        </tr>
+      `).join('');
+
+      document.getElementById('content').innerHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>Module</th>
+              <th>Version</th>
+              <th class="hide-mobile">Size</th>
+              <th>Artifact</th>
+              <th>Hash (click to copy)</th>
+              <th class="hide-mobile">Published</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      `;
+    }
+
+    load();
+  </script>
+</body>
+</html>
